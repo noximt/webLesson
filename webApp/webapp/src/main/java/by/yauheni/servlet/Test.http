@@ -1,3 +1,30 @@
-GET http://localhost:8080/home?myname=Yau&age=235262
+POST http://localhost:8080/reg
+Content-Type: application/x-www-form-urlencoded
+
+name=Test&login=test&password=12345678
 
 ###
+
+POST http://localhost:8080/auth
+Content-Type: application/x-www-form-urlencoded
+
+login=test&password=12345678
+
+###
+
+GET http://localhost:8080/change
+
+###
+
+POST http://localhost:8080/change
+Content-Type: application/x-www-form-urlencoded
+
+id=1&value=qwerty&type=pass
+
+###
+
+GET http://localhost:8080/home?x=10&y=9&optype=sub
+
+###
+
+GET http://localhost:8080/memo
