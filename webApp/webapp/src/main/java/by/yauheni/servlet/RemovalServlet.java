@@ -1,6 +1,6 @@
 package by.yauheni.servlet;
 
-import by.yauheni.service.UserService;
+import by.yauheni.service.InMemoryUserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/remove")
 public class RemovalServlet extends HttpServlet {
-    private UserService userService = new UserService();
+    private InMemoryUserService userService = new InMemoryUserService();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");

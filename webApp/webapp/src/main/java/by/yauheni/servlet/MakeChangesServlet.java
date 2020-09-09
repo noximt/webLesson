@@ -1,7 +1,7 @@
 package by.yauheni.servlet;
 
 import by.yauheni.domain.User;
-import by.yauheni.service.UserService;
+import by.yauheni.service.InMemoryUserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/change")
 public class MakeChangesServlet extends HttpServlet {
-    UserService userService = new UserService();
+    InMemoryUserService userService = new InMemoryUserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

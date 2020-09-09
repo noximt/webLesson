@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-@WebServlet(urlPatterns = "/memo")
+@WebServlet(name="memoservlet",urlPatterns = "/memo")
 public class MemoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

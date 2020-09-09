@@ -1,7 +1,7 @@
 package by.yauheni.servlet;
 
 import by.yauheni.domain.User;
-import by.yauheni.service.UserService;
+import by.yauheni.service.InMemoryUserService;
 
 
 import javax.servlet.ServletException;
@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/auth")
 public class AuthorizeServlet extends HttpServlet {
-    private UserService userService = new UserService();
+    private InMemoryUserService userService = new InMemoryUserService();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");

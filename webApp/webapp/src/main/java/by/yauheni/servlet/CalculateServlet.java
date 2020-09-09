@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/home")
-public class HomeServlet extends HttpServlet {
+@WebServlet(name = "calculateservlet",urlPatterns = "/calculate")
+public class CalculateServlet extends HttpServlet {
     private CaclService  caclService = new CaclService();
 
     @Override
@@ -23,9 +23,6 @@ public class HomeServlet extends HttpServlet {
         String y = req.getParameter("y");
         String optype = req.getParameter("optype");
         HttpSession session = req.getSession();
-        if (session.getAttribute("history") == null) {
-            session.setAttribute("history", new ArrayList<>());
-        }
         List<Operation> operations = (List<Operation>) session.getAttribute("history");
         double result = caclService.calculate(optype, Integer.parseInt(x), Integer.parseInt(y));
         Operation operation = new Operation(Double.parseDouble(x),Double.parseDouble(y), result, optype);
