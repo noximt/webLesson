@@ -1,5 +1,6 @@
 package by.yauheni.domain;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Operation {
@@ -7,6 +8,7 @@ public class Operation {
     private double y;
     private double result;
     private String opType;
+    private Date date;
 
     @Override
     public String toString() {
@@ -15,6 +17,7 @@ public class Operation {
                 ", y=" + y +
                 ", result=" + result +
                 ", opType='" + opType + '\'' +
+                ", currentData=" + date +
                 '}';
     }
 
@@ -66,6 +69,14 @@ public class Operation {
         this.opType = opType;
     }
 
+    public Date getData() {
+        return date;
+    }
+
+    public void setData(Date data) {
+        this.date = data;
+    }
+
     public Operation() {
     }
 
@@ -74,5 +85,6 @@ public class Operation {
         this.y = y;
         this.result = result;
         this.opType = opType;
+        this.date = new Date();
     }
 }
