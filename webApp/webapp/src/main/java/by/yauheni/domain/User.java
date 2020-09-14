@@ -3,8 +3,7 @@ package by.yauheni.domain;
 import java.util.Objects;
 
 public class User {
-    private static long incId = 1;
-    private long id = incId++;
+    private long id;
     private String login;
     private String password;
     private String name;

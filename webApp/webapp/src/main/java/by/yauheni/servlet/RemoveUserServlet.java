@@ -1,6 +1,8 @@
 package by.yauheni.servlet;
 
 import by.yauheni.service.InMemoryUserService;
+import by.yauheni.service.OperationService;
+import by.yauheni.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,19 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/remove")
-public class RemovalServlet extends HttpServlet {
-    private InMemoryUserService userService = new InMemoryUserService();
+public class RemoveUserServlet extends HttpServlet {
+    private UserService userService = new UserService();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String param = req.getParameter("parameter");
         String id = req.getParameter("id");
         String login = req.getParameter("login");
-        String param = req.getParameter("parameter");
         switch (param){
             case "id":
-                userService.removeByID(Long.parseLong(id));
+                userService.removeFromDBByID(Long.parseLong(id));
                 break;
             case "login":
-                userService.removeBylogin(login);
+                userService.removeFromDBByLogin(login);
                 break;
         }
     }

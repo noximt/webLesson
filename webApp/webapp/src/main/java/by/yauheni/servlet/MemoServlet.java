@@ -1,7 +1,6 @@
 package by.yauheni.servlet;
 
 import by.yauheni.domain.Operation;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,7 +39,7 @@ public class MemoServlet extends HttpServlet {
                 List<Operation> operationsData = new ArrayList<>();
                 for (int i = 0; i < operations.size(); i++) {
                     try {
-                        if (operations.get(i).getData().before(formatter.parse(date))){
+                        if (operations.get(i).getDate().before(formatter.parse(date))){
                             operationsData.add(operations.get(i));
                         }
                     } catch (ParseException e) {

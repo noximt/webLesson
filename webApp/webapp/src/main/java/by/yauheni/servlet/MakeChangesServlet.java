@@ -2,6 +2,8 @@ package by.yauheni.servlet;
 
 import by.yauheni.domain.User;
 import by.yauheni.service.InMemoryUserService;
+import by.yauheni.service.UserService;
+import by.yauheni.storage.UserStorageDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +14,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/change")
 public class MakeChangesServlet extends HttpServlet {
-    InMemoryUserService userService = new InMemoryUserService();
+    private UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,10 +33,10 @@ public class MakeChangesServlet extends HttpServlet {
         String type = req.getParameter("type");
         switch (type){
             case "name":
-                userService.updateName(value,Long.parseLong(id));
+                userService.updateNameInDB(value,Long.parseLong(id));
                 break;
             case "pass":
-                userService.updatePassword(value,Long.parseLong(id));
+                userService.updatePasswordInDB(value,Long.parseLong(id));
                 break;
         }
     }

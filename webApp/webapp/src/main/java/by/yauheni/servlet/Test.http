@@ -1,14 +1,14 @@
 POST http://localhost:8080/reg
 Content-Type: application/x-www-form-urlencoded
 
-name=Test&login=test&password=12345678
+login=zhyb&password=12345678&name=Yauheni
 
 ###
 
 POST http://localhost:8080/auth
 Content-Type: application/x-www-form-urlencoded
 
-login=test&password=12345678
+login=noximt&password=12345
 
 ###
 
@@ -23,8 +23,6 @@ id=1&value=qwerty&type=pass
 
 ###
 
-GET http://localhost:8080/home?x=10&y=7&optype=sum
+GET http://localhost:8080/calculate?x=10&y=7&optype=sum
 
 ###
-
-GET http://localhost:8080/memo?bywhat=operation&optype=sum

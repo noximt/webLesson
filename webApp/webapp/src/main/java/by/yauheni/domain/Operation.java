@@ -4,11 +4,45 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Operation {
+    long id;
+    long userID;
     private double x;
+    private String opType;
     private double y;
     private double result;
-    private String opType;
     private Date date;
+
+    public Operation(long id, long userID, double x, String opType, double y, double result, Date date) {
+        this.id = id;
+        this.userID = userID;
+        this.x = x;
+        this.opType = opType;
+        this.y = y;
+        this.result = result;
+        this.date = date;
+    }
+
+    public Operation(double x, double y, double result, String opType, long userID) {
+        this.x = x;
+        this.y = y;
+        this.result = result;
+        this.opType = opType;
+        this.userID = userID;
+        this.date = new Date();
+    }
+
+    public Operation(double x, double y, double result, String opType, long id, long userID) {
+        this.x = x;
+        this.y = y;
+        this.result = result;
+        this.opType = opType;
+        this.id = id;
+        this.userID = userID;
+        this.date = new Date();
+    }
+
+    public Operation() {
+    }
 
     @Override
     public String toString() {
@@ -17,7 +51,9 @@ public class Operation {
                 ", y=" + y +
                 ", result=" + result +
                 ", opType='" + opType + '\'' +
-                ", currentData=" + date +
+                ", date=" + date +
+                ", id=" + id +
+                ", userID=" + userID +
                 '}';
     }
 
@@ -69,22 +105,27 @@ public class Operation {
         this.opType = opType;
     }
 
-    public Date getData() {
+    public Date getDate() {
         return date;
     }
 
-    public void setData(Date data) {
-        this.date = data;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public Operation() {
+    public long getId() {
+        return id;
     }
 
-    public Operation(double x, double y, double result, String opType) {
-        this.x = x;
-        this.y = y;
-        this.result = result;
-        this.opType = opType;
-        this.date = new Date();
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getUserID() {
+        return userID;
+    }
+
+    public void setUserID(long userID) {
+        this.userID = userID;
     }
 }

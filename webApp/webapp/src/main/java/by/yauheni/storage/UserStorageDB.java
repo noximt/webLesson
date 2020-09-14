@@ -6,14 +6,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserStorageDB implements UserStorage{
+public class UserStorageDB implements UserStorage {
     private User user;
     Connection connection;
+
     {
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/users", "postgres", "root");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "root");
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -25,15 +29,15 @@ public class UserStorageDB implements UserStorage{
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getName());
             preparedStatement.execute();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
             return false;
         }
         return true;
     }
 
     @Override
-    public User remove(long id){
+    public User remove(long id) {
         try {
             connection.setAutoCommit(false);
             prepareUser(id);
@@ -42,13 +46,13 @@ public class UserStorageDB implements UserStorage{
             preparedStatement1.execute();
             connection.commit();
             connection.setAutoCommit(true);
-        } catch (SQLException trowable) {
+        } catch (SQLException throwable) {
             try {
                 connection.rollback();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            trowable.printStackTrace();
+            throwable.printStackTrace();
         }
         return user;
     }
@@ -63,13 +67,13 @@ public class UserStorageDB implements UserStorage{
             preparedStatement1.execute();
             connection.commit();
             connection.setAutoCommit(true);
-        } catch (SQLException trowable) {
+        } catch (SQLException throwable) {
             try {
                 connection.rollback();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            trowable.printStackTrace();
+            throwable.printStackTrace();
         }
         return user;
     }
@@ -127,7 +131,7 @@ public class UserStorageDB implements UserStorage{
             PreparedStatement preparedStatement = connection.prepareStatement("select * from users where name = ?");
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while  (resultSet.next()){
+            while (resultSet.next()) {
                 long id = resultSet.getLong(1);
                 String login = resultSet.getString(2);
                 String pass = resultSet.getString(3);
@@ -153,18 +157,18 @@ public class UserStorageDB implements UserStorage{
     @Override
     public User getUserByLogin(String login) {
         try {
-            prepareUser(login);
+            return prepareUser(login);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return user;
+        return null;
     }
 
     @Override
     public boolean contains(User user) {
         List<User> users = getAll();
         for (int i = 0; i < users.size(); i++) {
-            if (user.equals(users.get(i))){
+            if (user.equals(users.get(i))) {
                 return true;
             }
         }
@@ -176,8 +180,8 @@ public class UserStorageDB implements UserStorage{
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select id from users");
-            while(resultSet.next()){
-                if (resultSet.getLong(1) == id){
+            while (resultSet.next()) {
+                if (resultSet.getLong(1) == id) {
                     return true;
                 }
             }
@@ -190,13 +194,10 @@ public class UserStorageDB implements UserStorage{
     @Override
     public boolean contains(String login) {
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select login from users");
-            while(resultSet.next()){
-                if (resultSet.getString(1).equals(login)){
-                    return true;
-                }
-            }
+            PreparedStatement statement = connection.prepareStatement("select * from users where login = ?");
+            statement.setString(1, login);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -207,8 +208,8 @@ public class UserStorageDB implements UserStorage{
         PreparedStatement preparedStatement = connection.prepareStatement("select * from users where login = ?");
         preparedStatement.setString(1, login);
         ResultSet resultSet = preparedStatement.executeQuery();
-        resultSet.next() ;
-        user = new User(resultSet.getLong(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4));
+        resultSet.next();
+        User user = new User(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
         return user;
     }
 
@@ -216,8 +217,8 @@ public class UserStorageDB implements UserStorage{
         PreparedStatement preparedStatement = connection.prepareStatement("select * from users where id = ?");
         preparedStatement.setLong(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
-        resultSet.next() ;
-        user = new User(resultSet.getLong(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4));
+        resultSet.next();
+        User user = new User(resultSet.getLong(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
         return user;
     }
 

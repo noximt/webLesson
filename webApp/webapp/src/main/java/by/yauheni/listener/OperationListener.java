@@ -1,6 +1,7 @@
 package by.yauheni.listener;
 
 import by.yauheni.domain.Operation;
+import by.yauheni.service.OperationService;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -46,7 +47,6 @@ public class OperationListener implements ServletContextListener,
     }
 
     public void sessionDestroyed(HttpSessionEvent se) {
-
     }
 
     // -------------------------------------------------------
